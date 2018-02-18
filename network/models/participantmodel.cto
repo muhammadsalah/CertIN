@@ -1,0 +1,23 @@
+/* Defining the name space for the model file (CTO) following the convention
+  <folder_name>.<file_name>
+  in order to keep everything in tact
+ */
+
+namespace models.participantmodel
+
+participant person identified by ID {
+  o String ID
+  o String firstName
+  o String lastName
+  o String fullName
+  o DateTime dateOfBirth
+  o String country
+}
+
+participant certificateHolder identified by holderID extends person {
+  o String holderID
+}
+
+participant certificateIssuer identified by issuerID extends person {
+  o String issuerID
+}

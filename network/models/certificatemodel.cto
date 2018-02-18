@@ -1,0 +1,26 @@
+/* Defining the name space for the model file (CTO) following the convention
+  <folder_name>.<file_name>
+  in order to keep everything in tact
+ */
+
+namespace models.certificatemodel
+import models.participantmodel.*
+
+enum certificateState {
+  o Valid
+  o Revoked
+}
+
+asset certificate identified by certificateID {
+  o String certificateID
+  o DateTime issueDate
+  o DateTime expireDate optional
+  o String  encoding
+  o String  body
+  o certificateState state
+  o String reason optional
+  o String certificateInformation optional
+  --> certificateIssuer issuer
+  --> certificateHolder holder
+  --> person[] viewers optional
+}

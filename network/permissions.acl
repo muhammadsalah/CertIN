@@ -1,0 +1,68 @@
+////////////////////////// Certifacte permissions /////////////////////////////////////////////////////////////////
+rule certificateIssuerOnlyCreatesCertificates {
+    description: "Grant total access to certificates to their own certificates"
+    participant(issuer): "models.participantmodel.certificateIssuer"
+    operation: ALL
+    resource(certificate): "models.certificatemodel.certificate"
+    condition: (certificate.issuer.getIdentifier() == issuer.getIdentifier())
+    action: ALLOW
+}
+
+rule certificateHolderCanViewOwnCertificates {
+    description: "Grant read access to the certificate holder"
+    participant(holder): "models.participantmodel.certificateHolder"
+    operation: READ
+    resource(certificate): "models.certificatemodel.certificate"
+    condition: (certificate.holder.getIdentifier() == holder.getIdentifier())
+    action: ALLOW
+}
+
+rule personCanReadSharedCertificates {
+  description: "Grant read access to the person certificate being shared with"
+  participant(person): "models.participantmodel.person"
+  operation: READ
+  resource(certificate): "models.certificatemodel.certificate"
+  condition: (ViewerCheck(certificate,person))
+  action: ALLOW
+}
+
+rule NoOneCanAccessCertificates {
+    description: "Deny all access, if none of the above rules apply"
+    participant: "models.participantmodel.**"
+    operation: ALL
+    resource: "models.certificatemodel.certificate"
+    action: DENY
+}
+
+////////////////////////// SYSTEM RULES XXXXXXXXXX ////////////////////////////////////////////////////////////////
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule StandardUserRevoke {
+    description: "Allow standard users to be able to connect to the business network as this requires read access"
+    participant: "org.hyperledger.composer.system.Participant"
+    operation: CREATE,DELETE,UPDATE
+    resource: "org.hyperledger.composer.system.Network"
+    action: DENY
+}
+
+rule StandardUser {
+    description: "Allow standard users to be able to connect to the business network as this requires read access"
+    participant: "org.hyperledger.composer.system.Participant"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
