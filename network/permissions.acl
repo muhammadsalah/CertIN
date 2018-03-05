@@ -141,7 +141,7 @@ rule registrarCanManagecertificateIssuers {
 rule NetworkAdminUser {
     description: "Grant business network administrators create & read access to certificate issuers"
     participant: "org.hyperledger.composer.system.NetworkAdmin"
-    operation: CREATE,READ
+    operation: ALL
     resource: "models.registrarModel.registrar"
     action: ALLOW
 }
