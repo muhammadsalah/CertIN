@@ -1,8 +1,8 @@
 ////////////////////////// Certifacte permissions /////////////////////////////////////////////////////////////////
 rule certificateIssuerOnlyCreatesCertificates {
-    description: "Grant total access to certificates to their own certificates"
+    description: "Grant create & read access to certificates to their own certificates"
     participant(issuer): "models.participantModel.certificateIssuer"
-    operation: ALL
+    operation: CREATE,READ
     resource(certificate): "models.certificateModel.certificate"
     condition: (certificate.issuer.getIdentifier() == issuer.getIdentifier())
     action: ALLOW
@@ -57,12 +57,12 @@ rule certificateIssuerCanValidateCertificates {
   action: ALLOW
 }
 
-rule personCanReadSharedCertificates {
+rule viewerCanReadSharedCertificates {
   description: "Grant read access to the person certificate being shared with"
-  participant(person): "models.participantModel.person"
+  participant(viewer): "models.participantModel.certificateHolder"
   operation: READ
   resource(certificate): "models.certificateModel.certificate"
-  condition: (ViewerCheck(certificate,person))
+  condition: (ViewerCheck(certificate,viewer))
   action: ALLOW
 }
 
@@ -78,17 +78,19 @@ rule NoOneCanAccessCertificates {
 
 rule certificateHolderCanShare {
   description: "Grant create access to certificate holders to create share transactions"
-  participant: "models.participantModel.certificateHolder"
+  participant(holder): "models.participantModel.certificateHolder"
   operation: CREATE
   resource: "models.transactionsModel.ShareCertificate"
+  condition: (holder.status == "ACTIVE")
   action: ALLOW
 }
 
 rule certificateHolderCanUnshare {
   description: "Grant create access to certificate holders to create unshare transactions"
-  participant: "models.participantModel.certificateHolder"
+  participant(holder): "models.participantModel.certificateHolder"
   operation: CREATE
   resource: "models.transactionsModel.UnshareCertificate"
+  condition: (holder.status == "ACTIVE")
   action: ALLOW
 }
 
@@ -115,14 +117,41 @@ rule NoOneCanAcessTransactions {
   resource: "models.transactionsModel.*"
   action: DENY
 }
+////////////////////////// Identity management rules //////////////////////////////////////////////////////////////
+
+rule certificateIssuerCanManagecertificateHolders {
+  description: "Grant Create access to certificate issuers to manage their certificate holders"
+  participant(issuer): "models.participantModel.certificateIssuer"
+  operation: ALL
+  resource(holder): "models.participantModel.certificateHolder"
+  condition: (holder.issuer.getIdentifier() == issuer.getIdentifier())
+  action: ALLOW
+}
+
+rule registrarCanManagecertificateIssuers {
+  description: "Grant full access to registrars over the certificate issuers"
+  participant(registrar): "models.registrarModel.registrar"
+  operation: ALL
+  resource(issuer): "models.participantModel.certificateIssuer"
+  condition: (issuer.registrar.getIdentifier() == registrar.getIdentifier())
+  action: ALLOW
+}
 
 ////////////////////////// SYSTEM RULES XXXXXXXXXX ////////////////////////////////////////////////////////////////
 rule NetworkAdminUser {
-    description: "Grant business network administrators full access to user resources"
+    description: "Grant business network administrators create & read access to certificate issuers"
     participant: "org.hyperledger.composer.system.NetworkAdmin"
-    operation: ALL
-    resource: "**"
+    operation: CREATE,READ
+    resource: "models.registrarModel.registrar"
     action: ALLOW
+}
+
+rule NetworkAdminHasNofurtherControloverResources {
+  description: "Disabling the admin from controlling assets, and resources"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: ALL
+  resource: "models.**"
+  action: DENY
 }
 
 rule StandardUserRevoke {

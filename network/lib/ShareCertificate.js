@@ -11,18 +11,18 @@
  */
  function ShareCertificate (tx) {
     var certificate = tx.certificate;
-    var person = tx.person;
+    var viewer = tx.viewer;
 
     certificate.viewers.forEach(
-        function (viewer) {
-            if (viewer.getIdentifier() == person.getIdentifier())
+        function (currentViewer) {
+            if (currentViewer.getIdentifier() == viewer.getIdentifier())
             {
-                throw new Error("The person can already view the certificate");
+                throw new Error("The viewer can already view the certificate");
             }
         }
     );
 
-    certificate.viewers.push(person);
+    certificate.viewers.push(viewer);
 
     return getAssetRegistry("models.certificateModel.certificate").then(
         function (certificateRegistry) {

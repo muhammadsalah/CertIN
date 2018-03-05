@@ -1,0 +1,12 @@
+/* Defining the name space for the model file (CTO) following the convention
+  <folder_name>.<file_name>
+  in order to keep everything in tact
+ */
+ namespace models.registrarModel
+
+ participant registrar identified by registrarID {
+  o String registrarID
+  o String organizationalName
+  o String country
+  o DateTime dayOfFoundation
+}

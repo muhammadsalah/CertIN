@@ -4,23 +4,22 @@
  */
 
 namespace models.participantModel
+import models.registrarModel.*
 
-participant person identified by ID {
+enum accountStatus {
+  o ACTIVE
+  o DISABLED
+}
+
+participant certificateHolder identified by ID {
   o String ID
   o String firstName
   o String lastName
   o String fullName
   o DateTime dateOfBirth
   o String country
-}
-
-participant certificateHolder identified by holderID {
-  o String holderID
-  o String firstName
-  o String lastName
-  o String fullName
-  o DateTime dateOfBirth
-  o String country
+  o accountStatus status
+  --> certificateIssuer issuer
 }
 
 participant certificateIssuer identified by issuerID {
@@ -28,4 +27,5 @@ participant certificateIssuer identified by issuerID {
   o String organizationalName
   o String country
   o DateTime dayOfFoundation
+  --> registrar registrar
 }

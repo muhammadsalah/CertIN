@@ -8,12 +8,12 @@ import models.certificateModel.*
 
 transaction ShareCertificate {
   --> certificate certificate
-  --> person person
+  --> certificateHolder viewer
 }
 
 transaction UnshareCertificate {
   --> certificate certificate
-  --> person person
+  --> certificateHolder viewer
 }
 
 transaction RevokeCertificate {

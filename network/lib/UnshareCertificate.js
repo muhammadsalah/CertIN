@@ -5,17 +5,17 @@
  */
 
 /**
- * Share certificate transaction processor function
+ * Ushhare certificate transaction processor function
  * @param {models.transactionsModel.UnshareCertificate} tx
  * @transaction
  */
 function UnshareCertificate (tx) {
     var certificate = tx.certificate;
-    var person = tx.person;
+    var viewer = tx.viewer;
 
     certificate.viewers = certificate.viewers.filter(
-        function (viewer) {
-            return viewer.getIdentifier() != person.getIdentifier();
+        function (currentViewer) {
+            return currentViwer.getIdentifier() != viewer.getIdentifier();
     });
 
     return getAssetRegistry("models.certificateModel.certificate").then(
