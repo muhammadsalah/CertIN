@@ -5,19 +5,19 @@
  */
 
 /**
- * Revoke certificate transaction processor function
- * @param {models.transactionsModel.RevokeCertificate} tx
+ * Validate certificate transaction processor function
+ * @param {models.transactionsModel.ValidateCertificate} tx
  * @transaction
  */
 function RevokeCertificate (tx) {
     var certificate = tx.certificate;
 
-    if (certificate.certificateState == "VALID")
+    if (certificate.certificateState == "REVOKED")
     {
-        certificate.certificateState = "REVOKED";
-    }else if (certificate.certificateState == "REVOKED")
+        certificate.certificateState = "VALID";
+    }else if (certificate.certificateState == "VALID")
     {
-        throw new Error("This certificate is already revoked.");
+        throw new Error("This certificate is already valid.");
     }
 
     return getAssetRegistry("models.certificateModel.certificate").then(

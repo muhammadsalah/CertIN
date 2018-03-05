@@ -19,3 +19,7 @@ transaction UnshareCertificate {
 transaction RevokeCertificate {
   --> certificate certificate
 }
+
+transaction ValidateCertificate {
+  --> certificate certificate
+}

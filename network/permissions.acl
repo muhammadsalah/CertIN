@@ -47,6 +47,16 @@ rule certificateIssuerCanRevokeCertificates {
   action: ALLOW
 }
 
+rule certificateIssuerCanValidateCertificates {
+  description: "Grant update access to certificate issuers to validate certificates"
+  participant(issuer): "models.participantModel.certificateIssuer"
+  operation: UPDATE
+  resource(certificate): "models.certificateModel.certificate"
+  transaction(transaction): "models.transactionsModel.ValidateCertificate"
+  condition: (certificate.issuer.getIdentifier() == issuer.getIdentifier())
+  action: ALLOW
+}
+
 rule personCanReadSharedCertificates {
   description: "Grant read access to the person certificate being shared with"
   participant(person): "models.participantModel.person"
@@ -79,6 +89,14 @@ rule certificateHolderCanUnshare {
   participant: "models.participantModel.certificateHolder"
   operation: CREATE
   resource: "models.transactionsModel.UnshareCertificate"
+  action: ALLOW
+}
+
+rule certificateIssuerCanValidate {
+  description: "Grant create access to certificate issuers to create validate transactions"
+  participant: "models.participantModel.certificateIssuer"
+  operation: CREATE
+  resource: "models.transactionsModel.ValidateCertificate"
   action: ALLOW
 }
 
