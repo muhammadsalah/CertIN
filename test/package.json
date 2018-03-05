@@ -1,16 +1,14 @@
 {
-  "name": "certin-network",
+  "name": "test",
   "version": "1.0.0",
   "description": "",
-  "main": "none",
-  "directories": {
-    "lib": "lib"
-  },
+  "main": "addPersons.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "composer-client": "^0.16.5"
   }
 }

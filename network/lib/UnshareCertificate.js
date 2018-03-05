@@ -12,22 +12,11 @@
 function UnshareCertificate (tx) {
     var certificate = tx.certificate;
     var person = tx.person;
-    var update = true;
 
-    certificate.viewers.some(
-        function (viewer,viewerIndex) {
-            if (viewer == person)
-            {
-                update = false;
-                delete certificate.viewer[viewerIndex];
-                return true;
-            }
-            return false;
+    certificate.viewers = certificate.viewers.filter(
+        function (viewer) {
+            return viewer.getIdentifier() != person.getIdentifier();
     });
-
-    if (update){
-        throw new Error("This person already can't view the certificate");
-    }
 
     return getAssetRegistry("models.certificateModel.certificate").then(
         function (certificateRegistry) {

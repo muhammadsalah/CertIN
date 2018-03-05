@@ -15,7 +15,7 @@
 
     certificate.viewers.forEach(
         function (viewer) {
-            if (viewer == person)
+            if (viewer.getIdentifier() == person.getIdentifier())
             {
                 throw new Error("The person can already view the certificate");
             }

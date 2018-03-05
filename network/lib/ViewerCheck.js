@@ -12,10 +12,7 @@
  * @return {boolean} 
  */
 function ViewerCheck (certificate, person) {
-    certificate.viewers.forEach( function (viewer) {
-        if ( viewer.getIdentifier() == person.getIdentifier() ){
-            return true;
-        }
+    return certificate.viewers.some( function (viewer) {
+        return ( viewer.getIdentifier() == person.getIdentifier() )
     });
-    return false;
 }

@@ -38,13 +38,13 @@ const personBulk = [
 ];
 
 businessNetworkConnection.connect('admin@certin-network').then ( 
-    () => businessNetworkConnection.getParticipantRegistry('models.participantmodel.person')
+    () => businessNetworkConnection.getParticipantRegistry('models.participantModel.person')
 ).then(
     personRegistry => {
         let factory = businessNetworkConnection.getBusinessNetwork().getFactory();
         let persons =[];
         personBulk.forEach(person => {
-            let participant = factory.newResource('models.participantmodel','person',person.ID);
+            let participant = factory.newResource('models.participantModel','person',person.ID);
             Object.assign(participant,person);
             persons.push(participant);
         });

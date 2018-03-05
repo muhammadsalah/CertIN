@@ -22,5 +22,5 @@ asset certificate identified by certificateID {
   o String certificateInformation optional
   --> certificateIssuer issuer
   --> certificateHolder holder
-  --> person[] viewers optional
+  --> person[] viewers
 }
