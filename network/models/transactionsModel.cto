@@ -1,0 +1,21 @@
+/* Defining the name space for the model file (CTO) following the convention
+  <folder_name>.<file_name>
+  in order to keep everything in tact
+ */
+namespace models.transactionsModel
+import models.participantModel.*
+import models.certificateModel.*
+
+transaction ShareCertificate {
+  --> certificate certificate
+  --> person person
+}
+
+transaction UnshareCertificate {
+  --> certificate certificate
+  --> person person
+}
+
+transaction RevokeCertificate {
+  --> certificate certificate
+}

@@ -1,37 +1,101 @@
 ////////////////////////// Certifacte permissions /////////////////////////////////////////////////////////////////
 rule certificateIssuerOnlyCreatesCertificates {
     description: "Grant total access to certificates to their own certificates"
-    participant(issuer): "models.participantmodel.certificateIssuer"
+    participant(issuer): "models.participantModel.certificateIssuer"
     operation: ALL
-    resource(certificate): "models.certificatemodel.certificate"
+    resource(certificate): "models.certificateModel.certificate"
     condition: (certificate.issuer.getIdentifier() == issuer.getIdentifier())
     action: ALLOW
 }
 
 rule certificateHolderCanViewOwnCertificates {
     description: "Grant read access to the certificate holder"
-    participant(holder): "models.participantmodel.certificateHolder"
+    participant(holder): "models.participantModel.certificateHolder"
     operation: READ
-    resource(certificate): "models.certificatemodel.certificate"
+    resource(certificate): "models.certificateModel.certificate"
     condition: (certificate.holder.getIdentifier() == holder.getIdentifier())
     action: ALLOW
 }
 
+rule certificateHolderCanShareOwnCertificates {
+  description: "Grant update access to certificate holder through share transaction"
+  participant(holder): "models.participantModel.certificateHolder"
+  operation: UPDATE
+  resource(certificate): "models.certificateModel.certificate"
+  transaction(transaction): "models.transactionsModel.ShareCertificate"
+  condition: (certificate.holder.getIdentifier() == holder.getIdentifier())
+  action: ALLOW
+}
+
+rule certificateHolderCanUnshareCertificates {
+  description: "Grant update access to certificate holder through unshare transaction"
+  participant(holder): "models.participantModel.certificateHolder"
+  operation: UPDATE
+  resource(certificate): "models.certificateModel.certificate"
+  transaction(transaction): "models.transactionsModel.UnshareCertificate"
+  condition: (certificate.holder.getIdentifier() == holder.getIdentifier())
+  action: ALLOW
+}
+
+rule certificateIssuerCanRevokeCertificates {
+  description: "Grant update access to certificate issuers to revoke certificates"
+  participant(issuer): "models.participantModel.certificateIssuer"
+  operation: UPDATE
+  resource(certificate): "models.certificateModel.certificate"
+  transaction(transaction): "models.transactionsModel.RevokeCertificate"
+  condition: (certificate.issuer.getIdentifier() == issuer.getIdentifier())
+  action: ALLOW
+}
+
 rule personCanReadSharedCertificates {
   description: "Grant read access to the person certificate being shared with"
-  participant(person): "models.participantmodel.person"
+  participant(person): "models.participantModel.person"
   operation: READ
-  resource(certificate): "models.certificatemodel.certificate"
+  resource(certificate): "models.certificateModel.certificate"
   condition: (ViewerCheck(certificate,person))
   action: ALLOW
 }
 
 rule NoOneCanAccessCertificates {
     description: "Deny all access, if none of the above rules apply"
-    participant: "models.participantmodel.**"
+    participant: "models.participantModel.**"
     operation: ALL
-    resource: "models.certificatemodel.certificate"
+    resource: "models.certificateModel.certificate"
     action: DENY
+}
+
+////////////////////////// Transactions Rules XXXX /////////////////////////////////////////////////////////////////
+
+rule certificateHolderCanShare {
+  description: "Grant create access to certificate holders to create share transactions"
+  participant: "models.participantModel.certificateHolder"
+  operation: CREATE
+  resource: "models.transactionsModel.ShareCertificate"
+  action: ALLOW
+}
+
+rule certificateHolderCanUnshare {
+  description: "Grant create access to certificate holders to create unshare transactions"
+  participant: "models.participantModel.certificateHolder"
+  operation: CREATE
+  resource: "models.transactionsModel.UnshareCertificate"
+  action: ALLOW
+}
+
+rule certificateIssuerCanRevoke {
+  description: "Grant create access to certificate issuers to create revoke transactions"
+  participant: "models.participantModel.certificateIssuer"
+  operation: CREATE
+  resource: "models.transactionsModel.RevokeCertificate"
+  action: ALLOW
+}
+
+rule NoOneCanAcessTransactions {
+  description: "Deny all access, if none of the above rules apply"
+  participant: "models.participantModel.**"
+  operation: ALL
+  resource: "models.transactionsModel.*"
+  action: DENY
 }
 
 ////////////////////////// SYSTEM RULES XXXXXXXXXX ////////////////////////////////////////////////////////////////

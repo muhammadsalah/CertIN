@@ -3,7 +3,7 @@
   in order to keep everything in tact
  */
 
-namespace models.participantmodel
+namespace models.participantModel
 
 participant person identified by ID {
   o String ID
@@ -14,10 +14,18 @@ participant person identified by ID {
   o String country
 }
 
-participant certificateHolder identified by holderID extends person {
+participant certificateHolder identified by holderID {
   o String holderID
+  o String firstName
+  o String lastName
+  o String fullName
+  o DateTime dateOfBirth
+  o String country
 }
 
-participant certificateIssuer identified by issuerID extends person {
+participant certificateIssuer identified by issuerID {
   o String issuerID
+  o String organizationalName
+  o String country
+  o DateTime dayOfFoundation
 }

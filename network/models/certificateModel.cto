@@ -3,12 +3,12 @@
   in order to keep everything in tact
  */
 
-namespace models.certificatemodel
-import models.participantmodel.*
+namespace models.certificateModel
+import models.participantModel.*
 
 enum certificateState {
-  o Valid
-  o Revoked
+  o VALID
+  o REVOKED
 }
 
 asset certificate identified by certificateID {

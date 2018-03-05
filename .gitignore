@@ -1,4 +1,7 @@
-./network/composer-logs
-./network/node_modules
-./environment/hlfv1/composer-logs
-./environment/hlfv1/PeerAdmin@hlfv1.card
+network/composer-logs
+network/dist/*
+network/node_modules
+/test/composer-logs
+/test/node_modules
+environment/hlfv1/composer-logs
+environment/hlfv1/PeerAdmin@hlfv1.card
