@@ -9,7 +9,7 @@
  * @param {models.transactionsModel.ValidateCertificate} tx
  * @transaction
  */
-function RevokeCertificate (tx) {
+function ValidateCertificate (tx) {
     var certificate = tx.certificate;
 
     if (certificate.certificateState == "REVOKED")
