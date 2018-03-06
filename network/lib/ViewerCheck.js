@@ -4,6 +4,11 @@
  * Utility function to support Access Control Rules.
  */
 
+ /**
+  * This is an ACL utility function that performs the test if a person
+  * belongs to the list of viewers in the certificate asset; which enables 
+  * the sharing functionality over the blockchain.
+  */
 
 /**
  * This checks if a person is eligble to view the certificate as a share holder

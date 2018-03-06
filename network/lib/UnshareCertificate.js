@@ -5,6 +5,16 @@
  */
 
 /**
+ * Unshare certificate transaction processor function allows a user
+ * to hide his certificate from a certain user again (which is the default
+ * mode that keeps the privacy of the users)
+ * the logic is very similar to share certificate;
+ * 1- we leverage the filter function; and filter out the person we don't want.
+ * 2- get the asset registry.
+ * 3- update the asset registry.
+ */
+
+/**
  * Ushhare certificate transaction processor function
  * @param {models.transactionsModel.UnshareCertificate} tx
  * @transaction

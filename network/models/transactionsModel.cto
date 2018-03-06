@@ -18,8 +18,10 @@ transaction UnshareCertificate {
 
 transaction RevokeCertificate {
   --> certificate certificate
+  o String reason optional
 }
 
 transaction ValidateCertificate {
   --> certificate certificate
+  o String reason optional
 }
