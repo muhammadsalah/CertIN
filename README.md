@@ -9,9 +9,13 @@ CertIN is a blockchain project for handling certificates that will allow the fol
 <img src="./images/certIN.png"/>
 <br>
 
+
+
 # Project development phases
-This project is under the design phase; it has a very short cycle; and initial certificate design is under progress.
+The certificates in this project are encoded with some encoder; and the data is put in the body of the certificate model; rendering of the certificate is solely a client side problem.
+<br>
+Registrar identities are responsible for registering certificate issuers who enroll the certificate holders which perform the interactions over the network.
 <br>
 
 # Key value
-All users of this application will mainly rely on client side (on browser) SDK's to connect to the network securely via their identity cards which holds their credentials; all information over this network is auditable and verifiable by the emerging blockchain technology.
+All users of this application will mainly rely on client side (on browser) SDK's to connect to the network securely via their identity cards which holds their credentials /or users can access the network via REST-SERVER supported by their respective organizations; all information over this network is auditable and verifiable by the emerging blockchain technology.
