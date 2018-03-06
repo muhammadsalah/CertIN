@@ -6,7 +6,7 @@ CertIN is a blockchain project for handling certificates that will allow the fol
 <br>
 3- Employers can view the certificates, and verify the authenticity.
 
-<img src="images/certIN.png"/>
+<img src="./images/certIN.png"/>
 <br>
 
 # Project development phases
