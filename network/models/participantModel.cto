@@ -3,6 +3,17 @@
   in order to keep everything in tact
  */
 
+/**
+The participant model file depicts the main two identities that are involved
+over our blockchain project; the certificate holder represents a person
+identity who has mere attributes like name, and email (the amount of information
+is easily expandable); however, a certificate holder should be maintained in an 
+active state to keep sharing certificates.
+the certificate holder account is controlled by the certificate issuer account that
+enrolled this identity to the network in the first place.
+ */
+
+
 namespace models.participantModel
 import models.registrarModel.*
 
@@ -16,8 +27,9 @@ participant certificateHolder identified by ID {
   o String firstName
   o String lastName
   o String fullName
+  o String email 
   o DateTime dateOfBirth
-  o String country
+  o String country default = "not specified" optional
   o accountStatus status
   --> certificateIssuer issuer
 }
@@ -25,7 +37,8 @@ participant certificateHolder identified by ID {
 participant certificateIssuer identified by issuerID {
   o String issuerID
   o String organizationalName
-  o String country
+  o String website
+  o String country default = "not specified" optional
   o DateTime dayOfFoundation
   --> registrar registrar
 }

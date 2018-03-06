@@ -2,8 +2,17 @@
   <folder_name>.<file_name>
   in order to keep everything in tact
  */
-
- //TODO: We need documentation!
+/**
+Certificatet model file:
+  describes the certificate format that is kept over the blockchain network
+  each certificate is designated by an ID; and given an issue date thats solely up
+  to the issuer, please don't confuse it with the timestamp of the transaction;
+  the certificate is in one of either states (Valid/Revoked); and that is clearly
+  depicted by the enumerator.
+  certificate is owned by two identities which are the issuer & holder, the certificate
+  holder can share the certificate details including who can see the certificate with other
+  certificate holders as well.
+ */
 
 namespace models.certificateModel
 import models.participantModel.*

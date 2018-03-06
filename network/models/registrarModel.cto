@@ -2,11 +2,18 @@
   <folder_name>.<file_name>
   in order to keep everything in tact
  */
+/**
+registrar identity is the identity that should be created by the 
+network adminstrators and then they create certificate issuers
+registrar identities are meant for operational purposes; but certificate
+issuers can be for a certain department / course. 
+ */
+
  namespace models.registrarModel
 
  participant registrar identified by registrarID {
   o String registrarID
-  o String organizationalName
+  o String organizationName
   o String country
   o DateTime dayOfFoundation
 }
